@@ -10,29 +10,29 @@ date: "Monday, December 22, 2014"
 
 ## Por que R?
 
-- De graÁa
-- … uma linguagem de programaÁ„o
-- Atualizado e com grande gama de funÁıes analÌticas
+- De gra√ßa
+- √â uma linguagem de programa√ß√£o
+- Atualizado e com grande gama de fun√ß√µes anal√≠ticas
 
-## PrÛs e contras do R vs outros pacotes estatÌsticos
+## Pr√≥s e contras do R vs outros pacotes estat√≠sticos
 
 - Tabela de coisas que o R faz vs SAS/SPSS
 
-## PrÛs e contras do R vs outras linguagens
+## Pr√≥s e contras do R vs outras linguagens
 
 - Bullet 1
 - Bullet 2
 - Bullet 3
 
-## MotivaÁ„o
+## Motiva√ß√£o
 
 - Mostrar tudo o que o R pode fazer
-- Apontar o que (queremos que) a turma ir· ser capaz fazer ao final do curso. Ex: ggplots, mapas, modelagens, shiny,  relatÛrio HTML.
+- Apontar o que (queremos que) a turma ir√° ser capaz fazer ao final do curso. Ex: ggplots, mapas, modelagens, shiny,  relat√≥rio HTML.
 
 ## Agenda do curso
 
 * Aula 1
-    + parar·
+    + parar√°
     + etc e tal
   
 * Aula 2
@@ -40,9 +40,9 @@ date: "Monday, December 22, 2014"
     + Coisa chata
   
 * Aula 3
-    + um grande tÛpico
+    + um grande t√≥pico
     
-## InstalaÁ„o do R e do RStudio
+## Instala√ß√£o do R e do RStudio
 
 - Site para dar download do R
 - Site para dar download do RStudio
@@ -50,26 +50,26 @@ date: "Monday, December 22, 2014"
 ## Reconhecimento do RStudio
 
 - Falar sobre os 4 quadrantes
-- Mostrar as options e mostrar as que s„o importantes
+- Mostrar as options e mostrar as que s√£o importantes
 - Apontar as funcionalidades que valem a pena entrar em detalhes mais tarde
 
 ## Primeiros passos no R
 
 - Escrever "hello world" e mandar pro console
-- DemonstraÁıes com contas simples para exemplificar a din‚mica entre Source e Console
-- Primeira conceito: DiretÛrio base. 
+- Demonstra√ß√µes com contas simples para exemplificar a din√¢mica entre Source e Console
+- Primeira conceito: Diret√≥rio base. 
     + setwd(), getwd()
-    + "script R È um simples arq de texto com extensao .R"
+    + "script R √© um simples arq de texto com extensao .R"
     + .RProj (como alternativa para auxiliar nessa coisa de working directory)
 - Segundo conceito:
 
 ## Pedindo ajuda
 
-- help/documentaÁ„o
+- help/documenta√ß√£o
 - google
 - comunidade/stack overflow
 
-## PrÛxima aula
+## Pr√≥xima aula
 
 - Retomar X
 - Aprender Y
