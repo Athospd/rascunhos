@@ -625,3 +625,5 @@ http://adv-r.had.co.nz/Functions.html
 http://www.burns-stat.com/pages/Tutor/R_inferno.pdf
 
 # Próxima aula
+
+
