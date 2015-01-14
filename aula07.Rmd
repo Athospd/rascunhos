@@ -1,0 +1,64 @@
+---
+title: "Aula 7 - Modelos I"
+output:
+  html_document:
+    number_sections: yes
+    toc_depth: 2
+    toc: yes
+date: "Monday, December 22, 2014"
+---
+
+```{r, echo=FALSE}
+library(pander)
+panderOptions("table.style", "rmarkdown")
+```
+
+# Regressão Linear e ANOVA
+
+## Fórmulas
+
+## Parametrização
+
+## Análise de resíduos
+
+## Testes de hipóteses
+
+# Regressão Linear Generalizada
+
+## Famílias de distribuição
+
+## Análise de resíduos
+
+## Testes de hipóteses
+
+## Regressão logística
+
+# Modelos de Sobrevivência
+
+## Kaplan-Meier
+
+## Análise de resíduos
+
+## Testes de hipóteses
+
+# Demais tópicos
+
+- Dados longitudinais
+- Séries temporais
+- Dados categorizados
+- GAM/GAMLSS
+- Inferência Bayesiana
+- Processos estocásticos
+- Reamostragem
+
+# Referências
+
+http://www-bcf.usc.edu/~gareth/ISL/ISLR%20First%20Printing.pdf
+
+http://web.stanford.edu/~hastie/local.ftp/Springer/OLD/ESLII_print4.pdf
+
+http://www.ime.usp.br/~giapaula/texto_2013.pdf
+
+Colosimo, E.A. e Giolo, S.R. (2006) Análise de sobrevivência aplicada. ABE - Projeto Fisher, Edgard Blücher.
+
+# Próxima aula
