@@ -292,7 +292,9 @@ if(<condição1>) {
 # Certo
 if(1 == 2) {
   "Um resultado muito interessante!"
+### <b>
 } else { # <----- Mesma linha que o "}"
+### </b>
   "1 é diferente de 2"
 }
 
@@ -302,8 +304,8 @@ if(1 == 2) {
 ### <b>
 }
 else { # <----- Na linha abaixo do "}"
-  "1 é diferente de 2"
 ### </b>
+  "1 é diferente de 2"
 }
 ```
 
