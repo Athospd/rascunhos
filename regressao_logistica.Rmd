@@ -1,0 +1,26 @@
+---
+title: "Regressão Logística"
+author: "Athos Petri Damiani"
+date: "5/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Referências
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [Tidy Modeling With R](https://www.tmwr.org/)
+- [pacote {slider}](https://davisvaughan.github.io/slider/)
+- [Feature Engineering And Selection](http://www.feat.engineering/)
+- [Introduction To Statistical Learning](https://static1.squarespace.com/static/5ff2adbe3fe4fe33db902812/t/6062a083acbfe82c7195b27d/1617076404560/ISLR%2BSeventh%2BPrinting.pdf)
+- [Material do Curso de Machine Learning da Curso-R](https://github.com/curso-r/202104-intro-ml)
+
+
+# Exemplo de Fluxo de trabalho
+
+
+
+

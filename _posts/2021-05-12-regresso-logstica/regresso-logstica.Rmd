@@ -1,0 +1,305 @@
+---
+title: "Regressão Logística"
+description: |
+  Exemplo e referências de Regressão Logística.
+author:
+  - name: Athos Petri Damiani
+    url: https://github.com/athospd
+date: 05-12-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Referências
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [Tidy Modeling With R](https://www.tmwr.org/)
+- [pacote {slider}](https://davisvaughan.github.io/slider/)
+- [Feature Engineering And Selection](http://www.feat.engineering/)
+- [Introduction To Statistical Learning](https://static1.squarespace.com/static/5ff2adbe3fe4fe33db902812/t/6062a083acbfe82c7195b27d/1617076404560/ISLR%2BSeventh%2BPrinting.pdf)
+- [Material do Curso de Machine Learning da Curso-R](https://github.com/curso-r/202104-intro-ml)
+
+```{r}
+# pacotes ---------------
+library(tidyverse)
+```
+
+# Conexão R e SQL
+
+```{r}
+# Conexao com SQL --------------------------------------------------------------
+con <- DBI::dbConnect(RSQLite::SQLite(), "dados/dados_consultoria.db")
+
+# Acessando o SQL a partir do R ------------------------------------------------
+tbl(con, "indicadores") %>%
+  count(id) %>%
+  show_query()
+
+# passando do SQL pro R --------------------------------------------------------
+indicadores <- tbl(con, "indicadores") %>% collect()
+
+
+# PS: o SQLite não tem formato de datas, então tem que transformar em data quando vem pro R. Esse problema não tem no MySQL ou no SQL Server.
+indicadores <- indicadores %>%
+  mutate(
+    data = as.Date(data)
+  )
+```
+
+
+# Exemplo de manipulação de dados
+
+*Informação 1* - Sobre os IDs, o cliente informou que deveria ter apenas uma linha para cada trinca (id-ano-mes).
+Por conta de uma inconsistência, poderia acontecer de virem duas ou mais linhas para o mesma trinca (id-ano-mes).
+O correto é ter apenas uma linha apenas. Eles disseram que a linha com o maior valor de agendamento tem mais chance
+de ser a correta.
+
+
+```{r}
+# Solução: arrange() + distinct()
+indicadores <- indicadores %>%
+  dplyr::arrange(desc(agendamento)) %>%
+  dplyr::distinct(id, ano, mes, .keep_all = TRUE)
+```
+
+
+*Informação 2* - Sobre as séries mensais, o cliente informou que:
+
+1) IDs podem ter início e fim distintos.
+2) A série de meses de um ID não teve ter mês faltante entre seu início e seu fim,
+   porém, em virtude de problemas técnicos, pode haver perda de informação no meio
+   do processo. Assim, nesses casos, orienta-se substituir o valor faltante pelo
+   valor do mês anterior.
+
+
+
+```{r}
+# Olhando o problema dos meses faltantes
+indicadores %>%
+  ggplot(aes(x = data, y = id, colour = id)) +
+  geom_point(size = 5) 
+
+# Solução: {padr} + {tidyr} (exemplo com o id 970)
+indicadores %>%
+  dplyr::filter(id == 970) %>%
+  dplyr::arrange(data) %>%
+  padr::pad(interval = "month", group = "id")
+
+indicadores_com_pad <- indicadores  %>%
+  padr::pad(interval = "month", group = "id")  
+
+# padr::pad() consertou
+indicadores_com_pad %>%
+  ggplot(aes(x = data, y = id, colour = id)) +
+  geom_point(size = 5) 
+
+# agora tem que preencher os NAs com fill.
+indicadores_com_pad <- indicadores_com_pad %>%
+  dplyr::arrange(id, data) %>%
+  tidyr::fill(agendamento:cidade) %>%
+  dplyr::mutate(
+    # mes e ano não dá pra preencher com fill diretamente
+    mes = as.character(lubridate::month(data)),
+    ano = as.character(lubridate::year(data))
+  )
+```
+
+
+# Exemplos de Criação de Features janeladas
+
+```{r}
+ # features no tempo (exemplo) ---------------------
+teste <- indicadores_com_pad %>% 
+  filter(id %in% c(406, 420), data %>% between(as.Date("2019-01-01"), as.Date("2019-04-01"))) %>%
+  select(id, data)
+
+# transformacoes
+teste %>%
+  arrange(id, data) %>%
+  group_by(id) %>%
+  mutate(
+    x = 1:n(),
+    a = cumsum(x),
+    b = lag(x),
+    c = lag(x, n = 2),
+    d = lead(x),
+    e = slider::slide_dbl(x, mean, .before = 1, .after = 0),
+    f = slider::slide_dbl(x, mean, .before = 0, .after = 0),
+    h = x/lag(x)
+  )
+```
+
+
+# Exemplo de Fluxo de Trabalho do Tidymodels
+
+```{r}
+# Pacotes ------------------------------------------------------------------
+
+library(tidymodels)
+library(ISLR)
+library(tidyverse)
+library(modeldata)
+library(pROC)
+library(vip)
+
+# PASSO 0) CARREGAR AS BASES -----------------------------------------------
+data("credit_data")
+help(credit_data)
+credit_data <- credit_data %>% na.omit()
+glimpse(credit_data) # German Risk
+
+credit_data %>% count(Status)
+
+# PASSO 1) BASE TREINO/TESTE -----------------------------------------------
+set.seed(1)
+credit_initial_split <- initial_split(credit_data, strata = "Status", p = 0.75)
+
+credit_train <- training(credit_initial_split)
+credit_test  <- testing(credit_initial_split)
+
+# PASSO 2) EXPLORAR A BASE -------------------------------------------------
+
+## veremos mais pra frente!
+
+skimr::skim(credit_train)
+visdat::vis_miss(credit_train)
+
+corrr::correlate(credit_train %>% select(where(is.numeric))) %>% corrr::rplot()
+# PASSO 3) DATAPREP --------------------------------------------------------
+
+## veremos mais pra frente!
+
+credit_recipe <- recipe(Status ~ ., data = credit_train) %>%
+  step_normalize(all_numeric()) %>%
+  step_impute_linear(Income, Assets, Debt, impute_with = imp_vars(Expenses)) %>%
+  step_modeimpute(Home) %>%
+  step_dummy(all_nominal(), -all_outcomes()) %>%
+  step_zv(all_predictors()) 
+
+bake(prep(credit_recipe), new_data = NULL)
+visdat::vis_miss(bake(prep(credit_recipe), new_data = NULL))
+
+
+# PASSO 4) MODELO ----------------------------------------------------------
+# Definição de 
+# a) a f(x): logistc_reg()
+# b) modo (natureza da var resp): classification
+# c) hiperparametros que queremos tunar: penalty = tune()
+# d) hiperparametros que não queremos tunar: mixture = 1 # LASSO
+# e) o motor que queremos usar: glmnet
+credit_lr_model <- logistic_reg(penalty = tune(), mixture = 1) %>%
+  set_mode("classification") %>%
+  set_engine("glmnet")
+
+credit_wf <- workflow() %>% add_model(credit_lr_model) %>% add_recipe(credit_recipe)
+
+# PASSO 5) TUNAGEM DE HIPERPARÂMETROS --------------------------------------
+# a) bases de reamostragem para validação: vfold_cv()
+# b) (opcional) grade de parâmetros: parameters() %>% update() %>% grid_regular()
+# c) tune_grid(y ~ x + ...)
+# d) escolha das métricas (rmse, roc_auc, etc)
+# d) collect_metrics() ou autoplot() para ver o resultado
+credit_resamples <- vfold_cv(credit_train, v = 5)
+
+credit_lr_tune_grid <- tune_grid(
+  credit_wf,
+  resamples = credit_resamples,
+  metrics = metric_set(
+    accuracy, 
+    kap, # KAPPA 
+    roc_auc, 
+    precision, 
+    recall, 
+    f_meas, 
+    mn_log_loss #binary cross entropy
+  )
+)
+
+# minha versão do autoplot()
+collect_metrics(credit_lr_tune_grid)
+
+collect_metrics(credit_lr_tune_grid) %>%
+  ggplot(aes(x = penalty, y = mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err)) +
+  facet_wrap(~.metric, scales = "free") +
+  scale_x_log10()
+
+# PASSO 6) DESEMPENHO DO MODELO FINAL ------------------------------------------
+# a) extrai melhor modelo com select_best()
+# b) finaliza o modelo inicial com finalize_model()
+# c) ajusta o modelo final com todos os dados de treino (bases de validação já era)
+credit_lr_best_params <- select_best(credit_lr_tune_grid, "roc_auc")
+credit_lr_model <- credit_lr_model %>% finalize_model(credit_lr_best_params)
+
+credit_lr_last_fit <- last_fit(
+  credit_lr_model,
+  Status ~ .,
+  credit_initial_split
+)
+
+# Variáveis importantes
+credit_lr_last_fit_model <- credit_lr_last_fit$.workflow[[1]]$fit$fit
+vip(credit_lr_last_fit_model)
+
+# PASSO 7) GUARDA TUDO ---------------------------------------------------------
+write_rds(credit_lr_last_fit, "credit_lr_last_fit.rds")
+write_rds(credit_lr_model, "credit_lr_model.rds")
+
+collect_metrics(credit_lr_last_fit)
+
+credit_test_preds <- credit_lr_last_fit$.predictions[[1]]
+
+# roc
+credit_roc_curve <- credit_test_preds %>% roc_curve(Status, .pred_bad)
+autoplot(credit_roc_curve)
+
+# confusion matrix
+credit_test_preds %>%
+  mutate(
+    Status_class = factor(if_else(.pred_bad > 0.6, "bad", "good"))
+  ) %>%
+  conf_mat(Status, Status_class)
+
+# gráficos extras!
+
+# risco por faixa de score
+credit_test_preds %>%
+  mutate(
+    score =  factor(ntile(.pred_bad, 10))
+  ) %>%
+  count(score, Status) %>%
+  ggplot(aes(x = score, y = n, fill = Status)) +
+  geom_col(position = "fill") +
+  geom_label(aes(label = n), position = "fill") +
+  coord_flip()
+
+# gráfico sobre os da classe "bad"
+percentis = 20
+credit_test_preds %>%
+  mutate(
+    score = factor(ntile(.pred_bad, percentis))
+  ) %>%
+  filter(Status == "bad") %>%
+  group_by(score) %>%
+  summarise(
+    n = n(),
+    media = mean(.pred_bad)
+  ) %>%
+  mutate(p = n/sum(n)) %>%
+  ggplot(aes(x = p, y = score)) +
+  geom_col() +
+  geom_label(aes(label = scales::percent(p))) +
+  geom_vline(xintercept = 1/percentis, colour = "red", linetype = "dashed", size = 1)
+
+# PASSO 7) MODELO FINAL -----------------------------------------------------
+credit_final_lr_model <- credit_lr_model %>% fit(Status ~ ., credit_data)
+```
+
+
