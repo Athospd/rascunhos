@@ -1,0 +1,20 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "Sobre",
+      "description": "Materiais avulsos.",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-05-12T14:53:23-03:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Materiais - Athos",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-05-12T14:50:59-03:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}

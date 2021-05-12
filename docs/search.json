@@ -1,0 +1,12 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "Materiais - Athos",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-05-12T14:53:52-03:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}
