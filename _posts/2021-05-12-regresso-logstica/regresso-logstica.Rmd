@@ -199,7 +199,38 @@ credit_test  <- testing(credit_initial_split)
 ## Aqui é área livre!!!
 skimr::skim(credit_train)
 visdat::vis_miss(credit_train)
-corrr::correlate(credit_train %>% select(where(is.numeric))) %>% corrr::rplot()
+
+credit_train %>% 
+  select(where(is.numeric)) %>% 
+  cor() %>% 
+  corrplot::corrplot() 
+
+credit_train %>% 
+  select(c(where(is.factor), Status)) %>%
+  pivot_longer(-Status, names_to = "variavel", values_to = "valor") %>%
+  count(Status, variavel, valor) %>%
+  ggplot(aes(y = valor, x = n, fill = Status)) +
+  geom_col(position = "fill") +
+  facet_wrap(~variavel, scales = "free_y") +
+  ggtitle("Status vs. Variáveis Categóricas")
+
+credit_train %>% 
+  select(c(where(is.numeric), Status)) %>%
+  pivot_longer(-Status, names_to = "variavel", values_to = "valor") %>%
+  ggplot(aes(y = Status, x = valor, fill = Status)) +
+  geom_boxplot() +
+  facet_wrap(~variavel, scales = "free_x") +
+  ggtitle("Status vs. Variáveis Numéricas")
+
+
+credit_train %>% 
+  select(c(where(is.numeric), Status)) %>%
+  pivot_longer(-Status, names_to = "variavel", values_to = "valor") %>%
+  ggplot(aes(y = Status, x = valor, fill = Status)) +
+  geom_boxplot() +
+  facet_wrap(~variavel, scales = "free_x") +
+  scale_x_log10() +
+  ggtitle("Status vs. Variáveis Numéricas NA ESCALA LOG")
 ```
 
 ## PASSO 3) DATAPREP
