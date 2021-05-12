@@ -9,6 +9,7 @@ date: 05-12-2021
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
 ---
 
 
@@ -140,41 +141,49 @@ teste %>%
 
 ```{r}
 # Pacotes ------------------------------------------------------------------
-
 library(tidymodels)
 library(ISLR)
 library(tidyverse)
 library(modeldata)
 library(pROC)
 library(vip)
+```
 
-# PASSO 0) CARREGAR AS BASES -----------------------------------------------
+
+## PASSO 0) CARREGAR AS BASES
+
+```{r}
 data("credit_data")
 help(credit_data)
 credit_data <- credit_data %>% na.omit()
 glimpse(credit_data) # German Risk
 
 credit_data %>% count(Status)
+```
 
-# PASSO 1) BASE TREINO/TESTE -----------------------------------------------
+
+## PASSO 1) BASE TREINO/TESTE
+
+```{r}
 set.seed(1)
 credit_initial_split <- initial_split(credit_data, strata = "Status", p = 0.75)
 
 credit_train <- training(credit_initial_split)
 credit_test  <- testing(credit_initial_split)
+```
 
-# PASSO 2) EXPLORAR A BASE -------------------------------------------------
+## PASSO 2) EXPLORAR A BASE
 
-## veremos mais pra frente!
-
+```{r}
+## Aqui é área livre!!!
 skimr::skim(credit_train)
 visdat::vis_miss(credit_train)
-
 corrr::correlate(credit_train %>% select(where(is.numeric))) %>% corrr::rplot()
-# PASSO 3) DATAPREP --------------------------------------------------------
+```
 
-## veremos mais pra frente!
+## PASSO 3) DATAPREP
 
+```{r}
 credit_recipe <- recipe(Status ~ ., data = credit_train) %>%
   step_normalize(all_numeric()) %>%
   step_impute_linear(Income, Assets, Debt, impute_with = imp_vars(Expenses)) %>%
@@ -182,11 +191,14 @@ credit_recipe <- recipe(Status ~ ., data = credit_train) %>%
   step_dummy(all_nominal(), -all_outcomes()) %>%
   step_zv(all_predictors()) 
 
+# olhando a base preparada
 bake(prep(credit_recipe), new_data = NULL)
 visdat::vis_miss(bake(prep(credit_recipe), new_data = NULL))
+```
 
+## PASSO 4) MODELO
 
-# PASSO 4) MODELO ----------------------------------------------------------
+```{r}
 # Definição de 
 # a) a f(x): logistc_reg()
 # b) modo (natureza da var resp): classification
@@ -197,9 +209,13 @@ credit_lr_model <- logistic_reg(penalty = tune(), mixture = 1) %>%
   set_mode("classification") %>%
   set_engine("glmnet")
 
+# workflow
 credit_wf <- workflow() %>% add_model(credit_lr_model) %>% add_recipe(credit_recipe)
+```
 
-# PASSO 5) TUNAGEM DE HIPERPARÂMETROS --------------------------------------
+## PASSO 5) TUNAGEM DE HIPERPARÂMETROS
+
+```{r}
 # a) bases de reamostragem para validação: vfold_cv()
 # b) (opcional) grade de parâmetros: parameters() %>% update() %>% grid_regular()
 # c) tune_grid(y ~ x + ...)
@@ -221,6 +237,9 @@ credit_lr_tune_grid <- tune_grid(
   )
 )
 
+
+autoplot(credit_lr_tune_grid)
+
 # minha versão do autoplot()
 collect_metrics(credit_lr_tune_grid)
 
@@ -230,8 +249,11 @@ collect_metrics(credit_lr_tune_grid) %>%
   geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err)) +
   facet_wrap(~.metric, scales = "free") +
   scale_x_log10()
+```
 
-# PASSO 6) DESEMPENHO DO MODELO FINAL ------------------------------------------
+## PASSO 6) DESEMPENHO DO MODELO FINAL
+
+```{r}
 # a) extrai melhor modelo com select_best()
 # b) finaliza o modelo inicial com finalize_model()
 # c) ajusta o modelo final com todos os dados de treino (bases de validação já era)
@@ -243,15 +265,20 @@ credit_lr_last_fit <- last_fit(
   Status ~ .,
   credit_initial_split
 )
+```
 
-# Variáveis importantes
+
+
+### Variáveis importantes
+
+```{r}
 credit_lr_last_fit_model <- credit_lr_last_fit$.workflow[[1]]$fit$fit
 vip(credit_lr_last_fit_model)
+```
 
-# PASSO 7) GUARDA TUDO ---------------------------------------------------------
-write_rds(credit_lr_last_fit, "credit_lr_last_fit.rds")
-write_rds(credit_lr_model, "credit_lr_model.rds")
+### Métricas de desempenho
 
+```{r}
 collect_metrics(credit_lr_last_fit)
 
 credit_test_preds <- credit_lr_last_fit$.predictions[[1]]
@@ -267,8 +294,12 @@ credit_test_preds %>%
   ) %>%
   conf_mat(Status, Status_class)
 
-# gráficos extras!
 
+```
+
+### gráficos extras
+
+```{r}
 # risco por faixa de score
 credit_test_preds %>%
   mutate(
@@ -297,9 +328,17 @@ credit_test_preds %>%
   geom_col() +
   geom_label(aes(label = scales::percent(p))) +
   geom_vline(xintercept = 1/percentis, colour = "red", linetype = "dashed", size = 1)
+```
 
-# PASSO 7) MODELO FINAL -----------------------------------------------------
+## PASSO 7) MODELO FINAL
+
+```{r}
 credit_final_lr_model <- credit_lr_model %>% fit(Status ~ ., credit_data)
+
+# salva tudo no computador
+write_rds(credit_lr_model, "credit_lr_model.rds")
+write_rds(credit_final_lr_model, "credit_final_lr_model.rds")
+write_rds(credit_lr_last_fit, "credit_lr_last_fit.rds")
 ```
 
 [EXEMPLO DE DASHBOARD](https://curso-r.github.io/202104-intro-ml/exemplos/11-report-credit-data.html)
