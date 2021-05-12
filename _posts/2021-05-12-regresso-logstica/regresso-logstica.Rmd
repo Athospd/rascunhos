@@ -12,6 +12,8 @@ output:
     toc: true
 ---
 
+[Os códigos deste tutorial estão aqui (link).](https://github.com/Athospd/rascunhos/tree/master/_posts/2021-05-12-regresso-logstica)
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
