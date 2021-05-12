@@ -228,12 +228,12 @@ credit_lr_tune_grid <- tune_grid(
   resamples = credit_resamples,
   metrics = metric_set(
     accuracy, 
-    kap, # KAPPA 
-    roc_auc, 
-    precision, 
-    recall, 
-    f_meas, 
-    mn_log_loss #binary cross entropy
+    roc_auc
+    # kap, # KAPPA 
+    # precision, 
+    # recall, 
+    # f_meas, 
+    # mn_log_loss #binary cross entropy
   )
 )
 
@@ -341,4 +341,4 @@ write_rds(credit_final_lr_model, "credit_final_lr_model.rds")
 write_rds(credit_lr_last_fit, "credit_lr_last_fit.rds")
 ```
 
-[EXEMPLO DE DASHBOARD](https://curso-r.github.io/202104-intro-ml/exemplos/11-report-credit-data.html)
+# [EXEMPLO DE DASHBOARD (link)](https://curso-r.github.io/202104-intro-ml/exemplos/11-report-credit-data.html)
