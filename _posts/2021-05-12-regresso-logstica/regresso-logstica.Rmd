@@ -36,17 +36,36 @@ library(tidyverse)
 # Conexão R e SQL
 
 ```{r}
-# Conexao com SQL --------------------------------------------------------------
+# Exemplo de conexão com um MariaDB (também conhecido como MySQL) remoto.
+con_mariadb <- DBI::dbConnect(
+  RMariaDB::MariaDB(), 
+  host = "relational.fit.cvut.cz", 
+  port = 3306, 
+  username = "guest", 
+  password = "relational",
+  dbname = "financial"
+)
+
+DBI::dbListTables(con_mariadb)
+```
+
+```{r}
+# Conexao com SQLite --------------------------------------------------------------
 con <- DBI::dbConnect(RSQLite::SQLite(), "dados/dados_consultoria.db")
 
 # Acessando o SQL a partir do R ------------------------------------------------
+# computação é feita lá no servidor.
+tbl(con, "indicadores") %>%
+  count(id)
+
+# dá pra consultar a query de SQL que rodou lá no servidor.
 tbl(con, "indicadores") %>%
   count(id) %>%
   show_query()
 
 # passando do SQL pro R --------------------------------------------------------
+# collect() faz o download pro computado local (não estamos mais usando o servidor).
 indicadores <- tbl(con, "indicadores") %>% collect()
-
 
 # PS: o SQLite não tem formato de datas, então tem que transformar em data quando vem pro R. Esse problema não tem no MySQL ou no SQL Server.
 indicadores <- indicadores %>%

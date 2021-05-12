@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["dados/dados_consultoria.db","dados/dados_consultoria.xlsx","regresso-logstica_files/anchor-4.2.2/anchor.min.js","regresso-logstica_files/bowser-1.9.3/bowser.min.js","regresso-logstica_files/distill-2.2.21/template.v2.js","regresso-logstica_files/figure-html5/unnamed-chunk-10-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-12-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-12-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-14-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-15-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-16-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-16-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-4-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-4-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-3.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-4.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-5.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-6.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-7.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-8.png","regresso-logstica_files/figure-html5/unnamed-chunk-9-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-9-2.png","regresso-logstica_files/header-attrs-2.7/header-attrs.js","regresso-logstica_files/jquery-1.11.3/jquery.min.js","regresso-logstica_files/popper-2.6.0/popper.min.js","regresso-logstica_files/tippy-6.2.7/tippy-bundle.umd.min.js","regresso-logstica_files/tippy-6.2.7/tippy-light-border.css","regresso-logstica_files/tippy-6.2.7/tippy.css","regresso-logstica_files/tippy-6.2.7/tippy.umd.min.js","regresso-logstica_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["dados/dados_consultoria.db","dados/dados_consultoria.xlsx","regresso-logstica_files/anchor-4.2.2/anchor.min.js","regresso-logstica_files/bowser-1.9.3/bowser.min.js","regresso-logstica_files/distill-2.2.21/template.v2.js","regresso-logstica_files/figure-html5/unnamed-chunk-10-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-10-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-11-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-12-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-12-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-13-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-13-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-14-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-15-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-16-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-16-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-17-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-17-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-4-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-4-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-5-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-5-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-2.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-3.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-4.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-5.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-6.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-7.png","regresso-logstica_files/figure-html5/unnamed-chunk-6-8.png","regresso-logstica_files/figure-html5/unnamed-chunk-9-1.png","regresso-logstica_files/figure-html5/unnamed-chunk-9-2.png","regresso-logstica_files/header-attrs-2.7/header-attrs.js","regresso-logstica_files/jquery-1.11.3/jquery.min.js","regresso-logstica_files/popper-2.6.0/popper.min.js","regresso-logstica_files/tippy-6.2.7/tippy-bundle.umd.min.js","regresso-logstica_files/tippy-6.2.7/tippy-light-border.css","regresso-logstica_files/tippy-6.2.7/tippy.css","regresso-logstica_files/tippy-6.2.7/tippy.umd.min.js","regresso-logstica_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1525,10 +1525,46 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1 id="conexão-r-e-sql">Conexão R e SQL</h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Conexao com SQL --------------------------------------------------------------</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Exemplo de conexão com um MariaDB (também conhecido como MySQL) remoto.</span>
+<span class='va'>con_mariadb</span> <span class='op'>&lt;-</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span>
+  <span class='fu'>RMariaDB</span><span class='fu'>::</span><span class='fu'><a href='https://rmariadb.r-dbi.org/reference/dbConnect-MariaDBDriver-method.html'>MariaDB</a></span><span class='op'>(</span><span class='op'>)</span>, 
+  host <span class='op'>=</span> <span class='st'>"relational.fit.cvut.cz"</span>, 
+  port <span class='op'>=</span> <span class='fl'>3306</span>, 
+  username <span class='op'>=</span> <span class='st'>"guest"</span>, 
+  password <span class='op'>=</span> <span class='st'>"relational"</span>,
+  dbname <span class='op'>=</span> <span class='st'>"financial"</span>
+<span class='op'>)</span>
+
+<span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbListTables.html'>dbListTables</a></span><span class='op'>(</span><span class='va'>con_mariadb</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;account&quot;  &quot;card&quot;     &quot;client&quot;   &quot;disp&quot;     &quot;district&quot; &quot;loan&quot;    
+[7] &quot;order&quot;    &quot;trans&quot;   </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Conexao com SQLite --------------------------------------------------------------</span>
 <span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'>DBI</span><span class='fu'>::</span><span class='fu'><a href='https://dbi.r-dbi.org/reference/dbConnect.html'>dbConnect</a></span><span class='op'>(</span><span class='fu'>RSQLite</span><span class='fu'>::</span><span class='fu'><a href='https://rsqlite.r-dbi.org/reference/SQLite.html'>SQLite</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"dados/dados_consultoria.db"</span><span class='op'>)</span>
 
 <span class='co'># Acessando o SQL a partir do R ------------------------------------------------</span>
+<span class='co'># computação é feita lá no servidor.</span>
+<span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"indicadores"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>count</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># Source:   lazy query [?? x 2]
+# Database: sqlite 3.35.5
+#   [/media/athos/DATA/OneDrive/Documents/rascunhos/_posts/2021-05-12-regresso-logstica/dados/dados_consultoria.db]
+  id        n
+  &lt;chr&gt; &lt;int&gt;
+1 406      16
+2 420      18
+3 52       15
+4 60       19
+5 970      17
+6 972      18</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># dá pra consultar a query de SQL que rodou lá no servidor.</span>
 <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"indicadores"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>count</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>show_query</span><span class='op'>(</span><span class='op'>)</span>
@@ -1540,8 +1576,8 @@ FROM `indicadores`
 GROUP BY `id`</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># passando do SQL pro R --------------------------------------------------------</span>
+<span class='co'># collect() faz o download pro computado local (não estamos mais usando o servidor).</span>
 <span class='va'>indicadores</span> <span class='op'>&lt;-</span> <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>con</span>, <span class='st'>"indicadores"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>collect</span><span class='op'>(</span><span class='op'>)</span>
-
 
 <span class='co'># PS: o SQLite não tem formato de datas, então tem que transformar em data quando vem pro R. Esse problema não tem no MySQL ou no SQL Server.</span>
 <span class='va'>indicadores</span> <span class='op'>&lt;-</span> <span class='va'>indicadores</span> <span class='op'>%&gt;%</span>
@@ -1575,7 +1611,7 @@ GROUP BY `id`</code></pre>
   <span class='fu'>geom_point</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> 
 </code></pre>
 </div>
-<img src="regresso-logstica_files/figure-html5/unnamed-chunk-4-1.png" width="624" />
+<img src="regresso-logstica_files/figure-html5/unnamed-chunk-5-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Solução: {padr} + {tidyr} (exemplo com o id 970)</span>
 <span class='va'>indicadores</span> <span class='op'>%&gt;%</span>
@@ -1607,7 +1643,7 @@ GROUP BY `id`</code></pre>
   <span class='fu'>geom_point</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> 
 </code></pre>
 </div>
-<img src="regresso-logstica_files/figure-html5/unnamed-chunk-4-2.png" width="624" />
+<img src="regresso-logstica_files/figure-html5/unnamed-chunk-5-2.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># agora tem que preencher os NAs com fill.</span>
 <span class='va'>indicadores_com_pad</span> <span class='op'>&lt;-</span> <span class='va'>indicadores_com_pad</span> <span class='op'>%&gt;%</span>
@@ -1722,7 +1758,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 </code></pre>
 </div>
 <table>
-<caption><span id="tab:unnamed-chunk-9">Table 1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-10">Table 1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Name</td>
@@ -1958,12 +1994,12 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>visdat</span><span class='fu'>::</span><span class='fu'><a href='http://visdat.njtierney.com//reference/vis_miss.html'>vis_miss</a></span><span class='op'>(</span><span class='va'>credit_train</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="regresso-logstica_files/figure-html5/unnamed-chunk-9-1.png" width="624" />
+<img src="regresso-logstica_files/figure-html5/unnamed-chunk-10-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>corrr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/corrr/man/correlate.html'>correlate</a></span><span class='op'>(</span><span class='va'>credit_train</span> <span class='op'>%&gt;%</span> <span class='fu'>select</span><span class='op'>(</span><span class='fu'>where</span><span class='op'>(</span><span class='va'>is.numeric</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>corrr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/corrr/man/rplot.html'>rplot</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-9-2.png" width="624" /></p>
+<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-10-2.png" width="624" /></p>
 </div>
 <h2 id="passo-3-dataprep">PASSO 3) DATAPREP</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -2002,7 +2038,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>visdat</span><span class='fu'>::</span><span class='fu'><a href='http://visdat.njtierney.com//reference/vis_miss.html'>vis_miss</a></span><span class='op'>(</span><span class='fu'>bake</span><span class='op'>(</span><span class='fu'>prep</span><span class='op'>(</span><span class='va'>credit_recipe</span><span class='op'>)</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
 </div>
 <h2 id="passo-4-modelo">PASSO 4) MODELO</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -2050,7 +2086,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 <span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>credit_lr_tune_grid</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="regresso-logstica_files/figure-html5/unnamed-chunk-12-1.png" width="624" />
+<img src="regresso-logstica_files/figure-html5/unnamed-chunk-13-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># minha versão do autoplot()</span>
 <span class='fu'>collect_metrics</span><span class='op'>(</span><span class='va'>credit_lr_tune_grid</span><span class='op'>)</span>
@@ -2088,7 +2124,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
   <span class='fu'>scale_x_log10</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-12-2.png" width="624" /></p>
+<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-13-2.png" width="624" /></p>
 </div>
 <h2 id="passo-6-desempenho-do-modelo-final">PASSO 6) DESEMPENHO DO MODELO FINAL</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -2114,7 +2150,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 <span class='fu'><a href='https://rdrr.io/pkg/vip/man/vip.html'>vip</a></span><span class='op'>(</span><span class='va'>credit_lr_last_fit_model</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
+<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
 </div>
 <h3 id="métricas-de-desempenho">Métricas de desempenho</h3>
 <div class="layout-chunk" data-layout="l-body">
@@ -2135,7 +2171,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 <span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>credit_roc_curve</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="regresso-logstica_files/figure-html5/unnamed-chunk-15-1.png" width="624" />
+<img src="regresso-logstica_files/figure-html5/unnamed-chunk-16-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># confusion matrix</span>
 <span class='va'>credit_test_preds</span> <span class='op'>%&gt;%</span>
@@ -2165,7 +2201,7 @@ Prediction bad good
   <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<img src="regresso-logstica_files/figure-html5/unnamed-chunk-16-1.png" width="624" />
+<img src="regresso-logstica_files/figure-html5/unnamed-chunk-17-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># gráfico sobre os da classe "bad"</span>
 <span class='va'>percentis</span> <span class='op'>=</span> <span class='fl'>20</span>
@@ -2186,7 +2222,7 @@ Prediction bad good
   <span class='fu'>geom_vline</span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='va'>percentis</span>, colour <span class='op'>=</span> <span class='st'>"red"</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span>, size <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-16-2.png" width="624" /></p>
+<p><img src="regresso-logstica_files/figure-html5/unnamed-chunk-17-2.png" width="624" /></p>
 </div>
 <h2 id="passo-7-modelo-final">PASSO 7) MODELO FINAL</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -2201,7 +2237,7 @@ Prediction bad good
 </div>
 </div>
 <h1 id="exemplo-de-dashboard-link"><a href="https://curso-r.github.io/202104-intro-ml/exemplos/11-report-credit-data.html">EXEMPLO DE DASHBOARD (link)</a></h1>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
