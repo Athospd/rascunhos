@@ -1,7 +1,7 @@
 ---
-title: "Regressão Logística"
+title: "Regressão Logística na Prática"
 description: |
-  Exemplo e referências de Regressão Logística.
+  Exemplo e referências de Regressão Logística usando {tidymodels}.
 author:
   - name: Athos Petri Damiani
     url: https://github.com/athospd
@@ -302,4 +302,4 @@ credit_test_preds %>%
 credit_final_lr_model <- credit_lr_model %>% fit(Status ~ ., credit_data)
 ```
 
-
+[EXEMPLO DE DASHBOARD](https://curso-r.github.io/202104-intro-ml/exemplos/11-report-credit-data.html)
