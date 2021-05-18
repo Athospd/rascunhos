@@ -5,11 +5,13 @@ description: |
 author:
   - name: Athos Petri Damiani
     url: https://github.com/athospd
-date: 05-12-2021
+date: 05-18-2021
 output:
   distill::distill_article:
     self_contained: false
     toc: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 [Os códigos deste tutorial estão aqui (link).](https://github.com/Athospd/rascunhos/tree/master/_posts/2021-05-12-regresso-logstica)
@@ -158,7 +160,7 @@ teste %>%
 ```
 
 
-# Exemplo de Fluxo de Trabalho do Tidymodels
+# Fluxo de Trabalho do Tidymodels
 
 ```{r}
 # Pacotes ------------------------------------------------------------------
@@ -168,6 +170,7 @@ library(tidyverse)
 library(modeldata)
 library(pROC)
 library(vip)
+library(padr)
 ```
 
 
@@ -187,7 +190,7 @@ credit_data %>% count(Status)
 
 ```{r}
 set.seed(1)
-credit_initial_split <- initial_split(credit_data, strata = "Status", p = 0.75)
+credit_initial_split <- initial_split(credit_data, strata = "Status", prop = 0.75)
 
 credit_train <- training(credit_initial_split)
 credit_test  <- testing(credit_initial_split)
@@ -196,7 +199,6 @@ credit_test  <- testing(credit_initial_split)
 ## PASSO 2) EXPLORAR A BASE
 
 ```{r}
-## Aqui é área livre!!!
 skimr::skim(credit_train)
 visdat::vis_miss(credit_train)
 
@@ -239,7 +241,7 @@ credit_train %>%
 credit_recipe <- recipe(Status ~ ., data = credit_train) %>%
   step_normalize(all_numeric()) %>%
   step_impute_linear(Income, Assets, Debt, impute_with = imp_vars(Expenses)) %>%
-  step_modeimpute(Home) %>%
+  step_impute_mode(Home) %>%
   step_dummy(all_nominal(), -all_outcomes()) %>%
   step_zv(all_predictors()) 
 
@@ -333,7 +335,7 @@ vip(credit_lr_last_fit_model)
 ```{r}
 collect_metrics(credit_lr_last_fit)
 
-credit_test_preds <- credit_lr_last_fit$.predictions[[1]]
+credit_test_preds <- collect_predictions(credit_lr_last_fit)
 
 # roc
 credit_roc_curve <- credit_test_preds %>% roc_curve(Status, .pred_bad)
@@ -346,10 +348,15 @@ credit_test_preds %>%
   ) %>%
   conf_mat(Status, Status_class)
 
+options(scipen = 999)
+credit_lr_last_fit$.workflow[[1]] %>%
+  pull_workflow_fit() %>% 
+  tidy() %>%
+  select()
 
 ```
 
-### gráficos extras
+### Gráficos extras
 
 ```{r}
 # risco por faixa de score
@@ -394,3 +401,4 @@ write_rds(credit_lr_last_fit, "credit_lr_last_fit.rds")
 ```
 
 # [EXEMPLO DE DASHBOARD (link)](https://curso-r.github.io/202104-intro-ml/exemplos/11-report-credit-data.html)
+

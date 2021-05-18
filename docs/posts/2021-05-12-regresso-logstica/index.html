@@ -91,8 +91,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-05-12"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-05-12"/>
+<meta property="article:published" itemprop="datePublished" content="2021-05-18"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-05-18"/>
 <meta name="article:author" content="Athos Petri Damiani"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Regressão Logística na Prática"]},{"type":"character","attributes":{},"value":["Exemplo e referências de Regressão Logística usando {tidymodels}."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Athos Petri Damiani"]},{"type":"character","attributes":{},"value":["https://github.com/athospd"]}]}]},{"type":"character","attributes":{},"value":["05-12-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Regressão Logística na Prática"]},{"type":"character","attributes":{},"value":["Exemplo e referências de Regressão Logística usando {tidymodels}."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Athos Petri Damiani"]},{"type":"character","attributes":{},"value":["https://github.com/athospd"]}]}]},{"type":"character","attributes":{},"value":["05-18-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2061,7 +2061,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Regressão Logística na Prática","description":"Exemplo e referências de Regressão Logística usando {tidymodels}.","authors":[{"author":"Athos Petri Damiani","authorURL":"https://github.com/athospd","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-05-12T00:00:00.000-03:00","citationText":"Damiani, 2021"}
+{"title":"Regressão Logística na Prática","description":"Exemplo e referências de Regressão Logística usando {tidymodels}.","authors":[{"author":"Athos Petri Damiani","authorURL":"https://github.com/athospd","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-05-18T00:00:00.000-03:00","citationText":"Damiani, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2093,7 +2093,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-byline">
   Athos Petri Damiani <a href="https://github.com/athospd" class="uri">https://github.com/athospd</a> 
   
-<br/>05-12-2021
+<br/>05-18-2021
 </div>
 
 <div class="d-article">
@@ -2105,7 +2105,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><a href="#conexão-r-e-sql">Conexão R e SQL</a></li>
 <li><a href="#exemplo-de-manipulação-de-dados">Exemplo de manipulação de dados</a></li>
 <li><a href="#exemplos-de-criação-de-features-janeladas">Exemplos de Criação de Features janeladas</a></li>
-<li><a href="#exemplo-de-fluxo-de-trabalho-do-tidymodels">Exemplo de Fluxo de Trabalho do Tidymodels</a>
+<li><a href="#fluxo-de-trabalho-do-tidymodels">Fluxo de Trabalho do Tidymodels</a>
 <ul>
 <li><a href="#passo-0-carregar-as-bases">PASSO 0) CARREGAR AS BASES</a></li>
 <li><a href="#passo-1-base-treinoteste">PASSO 1) BASE TREINO/TESTE</a></li>
@@ -2117,7 +2117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <ul>
 <li><a href="#variáveis-importantes">Variáveis importantes</a></li>
 <li><a href="#métricas-de-desempenho">Métricas de desempenho</a></li>
-<li><a href="#gráficos-extras">gráficos extras</a></li>
+<li><a href="#gráficos-extras">Gráficos extras</a></li>
 </ul></li>
 <li><a href="#passo-7-modelo-final">PASSO 7) MODELO FINAL</a></li>
 </ul></li>
@@ -2313,7 +2313,7 @@ GROUP BY `id`</code></pre>
 6 420   2019-03-01     3     6     2     1     4   2.5     3  1.5 
 7 420   2019-04-01     4    10     3     2    NA   3.5     4  1.33</code></pre>
 </div>
-<h1 id="exemplo-de-fluxo-de-trabalho-do-tidymodels">Exemplo de Fluxo de Trabalho do Tidymodels</h1>
+<h1 id="fluxo-de-trabalho-do-tidymodels">Fluxo de Trabalho do Tidymodels</h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Pacotes ------------------------------------------------------------------</span>
@@ -2323,6 +2323,7 @@ GROUP BY `id`</code></pre>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://modeldata.tidymodels.org'>modeldata</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://expasy.org/tools/pROC/'>pROC</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/koalaverse/vip/'>vip</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/EdwinTh/padr'>padr</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2363,7 +2364,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>credit_initial_split</span> <span class='op'>&lt;-</span> <span class='fu'>initial_split</span><span class='op'>(</span><span class='va'>credit_data</span>, strata <span class='op'>=</span> <span class='st'>"Status"</span>, p <span class='op'>=</span> <span class='fl'>0.75</span><span class='op'>)</span>
+<span class='va'>credit_initial_split</span> <span class='op'>&lt;-</span> <span class='fu'>initial_split</span><span class='op'>(</span><span class='va'>credit_data</span>, strata <span class='op'>=</span> <span class='st'>"Status"</span>, prop <span class='op'>=</span> <span class='fl'>0.75</span><span class='op'>)</span>
 
 <span class='va'>credit_train</span> <span class='op'>&lt;-</span> <span class='fu'>training</span><span class='op'>(</span><span class='va'>credit_initial_split</span><span class='op'>)</span>
 <span class='va'>credit_test</span>  <span class='op'>&lt;-</span> <span class='fu'>testing</span><span class='op'>(</span><span class='va'>credit_initial_split</span><span class='op'>)</span>
@@ -2373,8 +2374,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 <h2 id="passo-2-explorar-a-base">PASSO 2) EXPLORAR A BASE</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Aqui é área livre!!!</span>
-<span class='fu'>skimr</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/skimr/reference/skim.html'>skim</a></span><span class='op'>(</span><span class='va'>credit_train</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>skimr</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/skimr/reference/skim.html'>skim</a></span><span class='op'>(</span><span class='va'>credit_train</span><span class='op'>)</span>
 </code></pre>
 </div>
 <table>
@@ -2665,7 +2665,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>credit_recipe</span> <span class='op'>&lt;-</span> <span class='fu'>recipe</span><span class='op'>(</span><span class='va'>Status</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>credit_train</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_normalize</span><span class='op'>(</span><span class='fu'>all_numeric</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_impute_linear</span><span class='op'>(</span><span class='va'>Income</span>, <span class='va'>Assets</span>, <span class='va'>Debt</span>, impute_with <span class='op'>=</span> <span class='fu'>imp_vars</span><span class='op'>(</span><span class='va'>Expenses</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>step_modeimpute</span><span class='op'>(</span><span class='va'>Home</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>step_impute_mode</span><span class='op'>(</span><span class='va'>Home</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_dummy</span><span class='op'>(</span><span class='fu'>all_nominal</span><span class='op'>(</span><span class='op'>)</span>, <span class='op'>-</span><span class='fu'>all_outcomes</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>step_zv</span><span class='op'>(</span><span class='fu'>all_predictors</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> 
 
@@ -2822,7 +2822,7 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 1 accuracy binary         0.809 Preprocessor1_Model1
 2 roc_auc  binary         0.827 Preprocessor1_Model1</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>credit_test_preds</span> <span class='op'>&lt;-</span> <span class='va'>credit_lr_last_fit</span><span class='op'>$</span><span class='va'>.predictions</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>credit_test_preds</span> <span class='op'>&lt;-</span> <span class='fu'>collect_predictions</span><span class='op'>(</span><span class='va'>credit_lr_last_fit</span><span class='op'>)</span>
 
 <span class='co'># roc</span>
 <span class='va'>credit_roc_curve</span> <span class='op'>&lt;-</span> <span class='va'>credit_test_preds</span> <span class='op'>%&gt;%</span> <span class='fu'>roc_curve</span><span class='op'>(</span><span class='va'>Status</span>, <span class='va'>.pred_bad</span><span class='op'>)</span>
@@ -2843,8 +2843,17 @@ $ Price     &lt;int&gt; 846, 1658, 2985, 1325, 910, 1645, 1800, 1093, 1957…</c
 Prediction bad good
       bad   83   30
       good 173  723</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>scipen <span class='op'>=</span> <span class='fl'>999</span><span class='op'>)</span>
+<span class='va'>credit_lr_last_fit</span><span class='op'>$</span><span class='va'>.workflow</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>pull_workflow_fit</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>tidy</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>select</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
 </div>
-<h3 id="gráficos-extras">gráficos extras</h3>
+<pre><code># A tibble: 23 x 0</code></pre>
+</div>
+<h3 id="gráficos-extras">Gráficos extras</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># risco por faixa de score</span>
@@ -2895,7 +2904,7 @@ Prediction bad good
 </div>
 </div>
 <h1 id="exemplo-de-dashboard-link"><a href="https://curso-r.github.io/202104-intro-ml/exemplos/11-report-credit-data.html">EXEMPLO DE DASHBOARD (link)</a></h1>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
