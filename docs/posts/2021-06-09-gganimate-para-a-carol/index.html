@@ -117,7 +117,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["gganimate-para-a-carol_files/anchor-4.2.2/anchor.min.js","gganimate-para-a-carol_files/bowser-1.9.3/bowser.min.js","gganimate-para-a-carol_files/distill-2.2.21/template.v2.js","gganimate-para-a-carol_files/figure-html5/unnamed-chunk-2-1.gif","gganimate-para-a-carol_files/header-attrs-2.7/header-attrs.js","gganimate-para-a-carol_files/jquery-1.11.3/jquery.min.js","gganimate-para-a-carol_files/popper-2.6.0/popper.min.js","gganimate-para-a-carol_files/tippy-6.2.7/tippy-bundle.umd.min.js","gganimate-para-a-carol_files/tippy-6.2.7/tippy-light-border.css","gganimate-para-a-carol_files/tippy-6.2.7/tippy.css","gganimate-para-a-carol_files/tippy-6.2.7/tippy.umd.min.js","gganimate-para-a-carol_files/webcomponents-2.0.0/webcomponents.js","image/thumbnail.png"]}
+  {"type":"character","attributes":{},"value":["gganimate-para-a-carol_files/anchor-4.2.2/anchor.min.js","gganimate-para-a-carol_files/bowser-1.9.3/bowser.min.js","gganimate-para-a-carol_files/distill-2.2.21/template.v2.js","gganimate-para-a-carol_files/figure-html5/unnamed-chunk-2-1.gif","gganimate-para-a-carol_files/figure-html5/unnamed-chunk-4-1.gif","gganimate-para-a-carol_files/header-attrs-2.7/header-attrs.js","gganimate-para-a-carol_files/jquery-1.11.3/jquery.min.js","gganimate-para-a-carol_files/popper-2.6.0/popper.min.js","gganimate-para-a-carol_files/tippy-6.2.7/tippy-bundle.umd.min.js","gganimate-para-a-carol_files/tippy-6.2.7/tippy-light-border.css","gganimate-para-a-carol_files/tippy-6.2.7/tippy.css","gganimate-para-a-carol_files/tippy-6.2.7/tippy.umd.min.js","gganimate-para-a-carol_files/webcomponents-2.0.0/webcomponents.js","image/thumbnail.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2108,14 +2108,21 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </nav>
 </div>
-<h2 id="dados-fake">dados fake</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gganimate.com'>gganimate</a></span><span class='op'>)</span>
-
-
-<span class='co'># base fake ----------------------------------</span>
+</code></pre>
+</div>
+</div>
+<h2 id="dados-fake">dados fake</h2>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># base fake ----------------------------------</span>
 <span class='va'>base</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span>
   <span class='va'>beaver1</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>ocorrencia <span class='op'>=</span> <span class='st'>"novas internações"</span>, day <span class='op'>=</span> <span class='fu'>if_else</span><span class='op'>(</span><span class='va'>day</span> <span class='op'>==</span> <span class='fl'>346</span>, <span class='fl'>307</span>, <span class='fl'>308</span><span class='op'>)</span><span class='op'>)</span>,
   <span class='va'>beaver2</span> <span class='op'>%&gt;%</span> <span class='fu'>mutate</span><span class='op'>(</span>ocorrencia <span class='op'>=</span> <span class='st'>"novas mortes"</span><span class='op'>)</span>
@@ -2140,8 +2147,13 @@ document.addEventListener('DOMContentLoaded', function() {
   <span class='va'>versao_da_base_24_05</span>,
   <span class='va'>versao_da_base_31_05</span>
 <span class='op'>)</span>
-
-<span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>base_com_todas_as_versoes</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>glimpse</span><span class='op'>(</span><span class='va'>base_com_todas_as_versoes</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Rows: 712
@@ -2192,7 +2204,7 @@ $ versao_da_base &lt;chr&gt; &quot;Versão da base: 10/05&quot;, &quot;Versão d
 <span class='fu'><a href='https://gganimate.com/reference/animate.html'>animate</a></span><span class='op'>(</span><span class='va'>gif</span>, width <span class='op'>=</span> <span class='fl'>650</span>, height <span class='op'>=</span> <span class='fl'>480</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="gganimate-para-a-carol_files/figure-html5/unnamed-chunk-2-1.gif" /><!-- --></p>
+<p><img src="gganimate-para-a-carol_files/figure-html5/unnamed-chunk-4-1.gif" /><!-- --></p>
 </div>
 <h2 id="salvar">salvar</h2>
 <div class="layout-chunk" data-layout="l-body">

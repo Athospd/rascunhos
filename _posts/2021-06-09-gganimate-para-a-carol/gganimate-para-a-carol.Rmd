@@ -19,13 +19,14 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
-
-## dados fake
-
 ```{r}
 library(tidyverse)
 library(gganimate)
+```
 
+## dados fake
+
+```{r, code_folding=TRUE}
 
 # base fake ----------------------------------
 base <- bind_rows(
@@ -52,7 +53,10 @@ base_com_todas_as_versoes <- bind_rows(
   versao_da_base_24_05,
   versao_da_base_31_05
 )
+```
 
+
+```{r}
 glimpse(base_com_todas_as_versoes)
 ```
 
