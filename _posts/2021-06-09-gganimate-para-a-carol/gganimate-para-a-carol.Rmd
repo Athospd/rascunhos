@@ -6,6 +6,7 @@ author:
   - name: Athos Petri Damiani
     url: https://github.com/athospd
 date: 09-06-2021
+preview: image/thumbnail.png
 output:
   distill::distill_article:
     self_contained: false
