@@ -28,7 +28,7 @@ library(gganimate)
 
 # base fake ----------------------------------
 base <- bind_rows(
-  beaver1 %>% mutate(ocorrencia = "novas internações", day = if_else(day == 346, 307, 308)),
+  beaver1 %>% mutate(ocorrencia = "novas internaÃ§Ãµes", day = if_else(day == 346, 307, 308)),
   beaver2 %>% mutate(ocorrencia = "novas mortes")
 ) %>%
   filter(day == 307) %>%
@@ -40,10 +40,10 @@ base <- bind_rows(
     data, ocorrencia, total_por_dia = temp
   )
 
-versao_da_base_10_05 <- base %>% mutate(versao_da_base = "Versão da base: 10/05", total_por_dia = ifelse(data > "2021-01-01", total_por_dia * 1, total_por_dia))
-versao_da_base_17_05 <- base %>% mutate(versao_da_base = "Versão da base: 17/05", total_por_dia = ifelse(data > "2021-01-01", total_por_dia * 1.01, total_por_dia))
-versao_da_base_24_05 <- base %>% mutate(versao_da_base = "Versão da base: 24/05", total_por_dia = ifelse(data > "2021-01-01", total_por_dia * 1.03, total_por_dia))
-versao_da_base_31_05 <- base %>% mutate(versao_da_base = "Versão da base: 31/05", total_por_dia = ifelse(data > "2021-01-01", total_por_dia * 1.06, total_por_dia))
+versao_da_base_10_05 <- base %>% mutate(versao_da_base = "VersÃ£o da base: 10/05", total_por_dia = ifelse(data > "2021-01-01", total_por_dia * 1, total_por_dia))
+versao_da_base_17_05 <- base %>% mutate(versao_da_base = "VersÃ£o da base: 17/05", total_por_dia = ifelse(data > "2021-01-01", total_por_dia * 1.01, total_por_dia))
+versao_da_base_24_05 <- base %>% mutate(versao_da_base = "VersÃ£o da base: 24/05", total_por_dia = ifelse(data > "2021-01-01", total_por_dia * 1.03, total_por_dia))
+versao_da_base_31_05 <- base %>% mutate(versao_da_base = "VersÃ£o da base: 31/05", total_por_dia = ifelse(data > "2021-01-01", total_por_dia * 1.06, total_por_dia))
 
 base_com_todas_as_versoes <- bind_rows(
   versao_da_base_10_05,
@@ -83,9 +83,9 @@ gif <- base_com_todas_as_versoes %>%
     x = "data", 
     y = "Total por dia", 
     colour = NULL, 
-    title = "Internações por SRAG e mortes confirmadas por Covid-19",
-    subtitle = "Média móvel por data de ocorrência do Estado de SP",
-    caption = "Fonte: Sivep-Gripe (Ministério da Saúde)"
+    title = "InternaÃ§Ãµes por SRAG e mortes confirmadas por Covid-19",
+    subtitle = "MÃ©dia mÃ³vel por data de ocorrÃªncia do Estado de SP",
+    caption = "Fonte: Sivep-Gripe (MinistÃ©rio da SaÃºde)"
   ) +
   scale_x_date(date_labels = "%b %Y") +
   theme(
