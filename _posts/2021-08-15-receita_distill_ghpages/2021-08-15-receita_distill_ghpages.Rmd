@@ -1,0 +1,64 @@
+---
+title: "Receita para fazer um Blog com Distill no Github Pages"
+description: |
+  Passo a passo de como subir um blog distill no Github Pages.
+author:
+  - name: Athos Damiani
+    url: https://github.com/athospd
+    affiliation: Curso-R
+    affiliation_url: https://curso-r.com/
+date: 03-22-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Requerimento
+
+O seguinte passo a passo supõe conhecimento prévio de git e github com RStudio. 
+A seção de Git/Github [do livro Zen do R](https://curso-r.github.io/zen-do-r/git-github.html) é uma ótima referência para aprender a usar o git e github no R.
+
+## Criar o blog: passo-a-Passo
+
+Esse passo-a-passo é baseado no [doc do distill](https://rstudio.github.io/distill/publish_article.html#github-pages) da RStudio.
+
+
+1. Rode `install.packages(c("usethis", "distill"))` para instalar os pacotes {usethis} e {distill}.
+2. Rode `usethis::create_package("blogDoAthos")` para criar novo projeto do RStudio.
+3. Rode `usethis::use_git()` para iniciar o git no seu projeto.
+4. Rode `usethis::use_github(protocol = "ssh"` para criar um repositório no seu github.
+5. Vá ao repositório do seu github, clique em settings e desça até achar a configuração do `Github Pages`. Escolha  
+
+```{r, echo = FALSE, layout="l-body-outset", fig.cap="ghpages"}
+knitr::include_graphics("githubpages.gif")
+```
+
+6. Rode `file.create(".nojekyll")` só pra evitar uns problemas com o ghpages.
+7. Rode `distill::create_blog(".", "Blog do Athos")` para criar seu blog.
+8. *Commitar* e *pushar* para o github.
+9. Ir para o link que o Github Pages mostrou na hora da configuração.
+
+```{r, echo = FALSE, layout="l-body-outset", fig.cap="ghpages"}
+knitr::include_graphics("githubpageslink.png")
+```
+
+## Criar um post: passo-a-passo
+
+1. Rode `distill::create_post("Título do Meu Primeiro Post")` para criar um Rmd novo.
+2. Com o Rmd do seu post aberto na sua frente, pressione CTRL+SHIF+K para renderizar (e gerar o HTML).
+3. *Commitar* e *pushar* para o github para publicar o seu post no ar.
+4. Editar o seu Rmd e depois repetir os itens 2 e 3 para subir a versão editada/atualizada do seu post.
+
+## Exemplos de distill de R para se inspirar e explorar o github
+
+- [Trabalhos de Regressão Linear com R da Curso-R](https://curso-r.github.io/trabalhos-regressao-linear/)
+- [Blog da ABJ](https://blog.abj.org.br/index.html)
+- [Site do próprio Distill para R Markdown](https://rstudio.github.io/distill/)
+- [RStudio AI Blog](https://blogs.rstudio.com/ai/)
+- [Ciência de Dados com R e PostgreSQL do JJ - José Jesus do R](https://rpg.consudata.com.br/)
+- [Blog da Beatriz Milz](https://beatrizmilz.com/)
+

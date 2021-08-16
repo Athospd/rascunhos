@@ -1,0 +1,142 @@
+---
+title: "Exemplo de Post Poliglota (R Py SQL)"
+description: |
+  Um Notebook feito em RMarkdown que tem R, Python e SQL trabalhando juntos.
+author:
+  - name: Athos Dmiani 
+    url: https://github.com/Athospd/rascunhos/tree/master/_posts/2021-08-16-exemplo_de_post_poliglota/exemplo_de_post_poliglota.html
+    affiliation: Curso-R
+    affiliation_url: https://curso-r.com
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setup do Python
+
+- `reticulate` é o pacote responsável pela comunicação entre R e Python.
+- `conda_create("athos")` cria um novo ambiente de python usando a distribuição conda. Use `virtualenv_create()`virtualenv_create()` para criar um virtual env padrão (sem usar o conda). 
+- `use_condaenv("athos", required = TRUE)` define o ambiente python que vai ser usado. 
+- `conda_install("athos", "pandas")` instala o pandas no ambiente escolhido (no caso, no ambiente 'athos').
+
+```{r}
+library(reticulate)
+# conda_create("athos")
+use_condaenv("athos", required = TRUE)
+# py_config()
+# conda_install("athos", "pandas")
+# conda_install("athos", "numpy")
+```
+
+## Código no R
+
+```{r, layout="l-body-outset", message = FALSE, warning = FALSE}
+library(rmarkdown)
+library(tidyverse)
+paged_table(mtcars)
+```
+
+## Código no Python
+
+```{python}
+import pandas as pd
+
+descb = r.iris.describe()
+descb
+```
+
+```{python}
+obj_do_python = "alo mãe " + "to no python!"
+obj_do_python
+```
+
+## De volta pro R
+
+```{r}
+py$descb %>%
+  select(Sepal.Length)
+```
+
+## Código em SQL
+
+### Colocando uma tabelinha no SQLite
+
+```{r}
+library(DBI)
+library(dplyr)
+db <- dbConnect(RSQLite::SQLite(), dbname = "sql.sqlite")
+copy_to(db, mtcars) # coloca o mtcars no banco de dados
+```
+
+## SQL
+
+Fazendo uma consulta no SQLite
+
+```{sql, connection=db}
+SELECT * FROM mtcars
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(DBI)
+library(dplyr)
+library(dbplyr)
+
+con <- dbConnect(RSQLite::SQLite(), dbname = "imdb.db")
+dbListTables(con)
+```
+
+```{sql, connection=con}
+SELECT titulo FROM imdb
+WHERE nota_imdb > 9
+```
+
+```{sql, connection=con}
+DROP TABLE IF EXISTS 'primeiro_titulo';
+```
+
+```{sql, connection=con}
+create table primeiro_titulo as
+SELECT titulo 
+FROM imdb 
+limit 1
+```
+
+```{r}
+# collect() traz a tabela para a memória do computador local
+tbl(con, "primeiro_titulo") %>% collect()
+```
+
+## Miscelânea do Rmarkdown
+
+**Um mapinha**
+
+```{r}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%  
+  addMarkers(lng=174.768, lat=-36.852, popup="Onde o R Nasceu")
+```
+
+
+**Um gráfico que mexe**
+
+```{r}
+library(dygraphs)
+dygraph(ldeaths)
+```
+
+
+**Um plotly**
+
+```{r}
+library(plotly)
+plot_ly(z = ~volcano) %>% 
+  add_surface()  
+```
+
