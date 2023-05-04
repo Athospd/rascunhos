@@ -2,5 +2,3 @@
 FROM rocker/rstudio:latest
 
 ENV PASSWORD=$PASSWORD
-
-RUN "init/"
